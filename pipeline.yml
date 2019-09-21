@@ -12,7 +12,14 @@ resources:
       uri: git@github.com:jessicastenning/concourse-pipelines.git
       branch: master
       private_key: ((deploy_key))
-
+  - name: tfstate-bucket
+    type: s3
+    source:
+      region_name: ((aws_region))
+      bucket: tfstate-bucket
+      versioned_file: ci/terraform.tfstate
+      access_key_id: ((concourse_ci_s3_access_key))
+      secret_access_key: ((concourse_ci_s3_secret_key))
   - name: terraform
     type: terraform
     source:
@@ -29,3 +36,17 @@ resources:
         AWS_ACCESS_KEY_ID: ((concourse_ci_s3_access_key))
         AWS_SECRET_ACCESS_KEY: ((concourse_ci_s3_secret_key))
         AWS_DEFAULT_REGION: ((aws_region))
+
+jobs:
+- name: create_state_bucket
+  plan:
+  - get: git-repo
+    trigger: true
+  - task: create_state_bucket
+    file: concourse-pipelines/tasks/create_state_bucket.yml
+    params:
+      AWS_ACCESS_KEY_ID: ((concourse_ci_s3_access_key))
+      AWS_SECRET_ACCESS_KEY: ((concourse_ci_s3_secret_key))
+  - put: tfstate-bucket
+    params:
+      file: tfstate-out/terraform.tfstate
