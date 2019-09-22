@@ -6,7 +6,7 @@ module "s3_bucket" {
   user_enabled             = true
   versioning_enabled       = true
   allowed_bucket_actions   = ["s3:*"]
-  name                     = "concourse-bucket"
+  name                     = "js-concourse-bucket"
 }
 
 output "iam_user_id" {
