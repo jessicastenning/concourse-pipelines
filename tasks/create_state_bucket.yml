@@ -13,7 +13,7 @@ outputs:
 - name: tfstate-out
 
 run:
-  path: concourse-pipelines/tasks/create_state_bucket.sh
+  path: git-repo/tasks/create_state_bucket.sh
 
 params:
   AWS_ACCESS_KEY_ID: ((concourse_ci_s3_access_key))
