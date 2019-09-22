@@ -16,7 +16,7 @@ resources:
     type: s3
     source:
       region_name: ((aws_region))
-      bucket: tfstate-bucket
+      bucket: concourse-tfstate-bucket
       versioned_file: ci/terraform.tfstate
       access_key_id: ((concourse_ci_s3_access_key))
       secret_access_key: ((concourse_ci_s3_secret_key))
@@ -25,7 +25,7 @@ resources:
     source:
       backend_type: s3
       backend_config:
-        bucket: tfstate-bucket
+        bucket: concourse-tfstate-bucket
         key: terraform.tfstate
         region: ((aws_region))
         access_key: ((concourse_ci_s3_access_key))
