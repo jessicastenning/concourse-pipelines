@@ -50,3 +50,13 @@ jobs:
   - put: tfstate-bucket
     params:
       file: tfstate-out/terraform.tfstate
+- name: create_infra
+  plan:
+  - get: git-repo
+    trigger: true
+    passed:
+    - create_state_bucket
+  - put: terraform
+    params:
+      env_name: default
+      terraform_source: git-repo/tf
