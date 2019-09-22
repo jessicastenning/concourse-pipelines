@@ -43,7 +43,7 @@ jobs:
   - get: git-repo
     trigger: true
   - task: create_state_bucket
-    file: concourse-pipelines/tasks/create_state_bucket.yml
+    file: git-repo/tasks/create_state_bucket.yml
     params:
       AWS_ACCESS_KEY_ID: ((concourse_ci_s3_access_key))
       AWS_SECRET_ACCESS_KEY: ((concourse_ci_s3_secret_key))
