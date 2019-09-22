@@ -1,0 +1,21 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: engineerbetter/pcf-ops
+    tag: latest
+
+inputs:
+- name: git-repo
+
+outputs:
+- name: tfstate-out
+
+run:
+  path: concourse-pipelines/tasks/create_state_bucket.sh
+
+params:
+  AWS_ACCESS_KEY_ID: ((concourse_ci_s3_access_key))
+  AWS_SECRET_ACCESS_KEY: ((concourse_ci_s3_secret_key))
+  BUCKET_NAME: tfstate-bucket
