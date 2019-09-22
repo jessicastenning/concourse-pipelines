@@ -25,13 +25,13 @@ resources:
     source:
       backend_type: s3
       backend_config:
-        bucket: mybucket
-        key: mydir/terraform.tfstate
-        region: us-east-1
+        bucket: tfstate-bucket
+        key: terraform.tfstate
+        region: ((aws_region))
         access_key: ((concourse_ci_s3_access_key))
         secret_key: ((concourse_ci_s3_secret_key))
       vars:
-        tag_name: concourse
+        region: ((aws_region))
       env:
         AWS_ACCESS_KEY_ID: ((concourse_ci_s3_access_key))
         AWS_SECRET_ACCESS_KEY: ((concourse_ci_s3_secret_key))
