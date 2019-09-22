@@ -18,12 +18,12 @@ else
   echo "No existing bucket found for project ${PROJECT_ID}, assuming first run"
 fi
 
-pushd offline_cs/eb_infra/tfstate_bucket/
+pushd git-repo/tfstate_bucket/
   terraform init
 
   terraform apply \
   -auto-approve \
   -input=false \
-  -state=../../../terraform.tfstate \
-  -state-out=../../../tfstate-out/terraform.tfstate
+  -state=../../terraform.tfstate \
+  -state-out=../../tfstate-out/terraform.tfstate
 popd
